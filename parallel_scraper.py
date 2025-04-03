@@ -116,7 +116,7 @@ def scrape_linkedin(job_query, len_jobs):
         
         job_descs_df.columns = ['link','emp_type', 'job_func', 'job_desc', 'posted']
         linkedin_df = jobs_df.merge(job_descs_df, on='link', how='left')
-        linkedin_df.to_csv(f'try_linkedin.csv')
+        linkedin_df.to_csv(f'linkedin.csv')
     except:
         print("Unable to Scrape Linkedin")
     finally:
@@ -213,7 +213,7 @@ def scrape_foundit(job_query, len_jobs):
         
         foundit_df = pd.DataFrame(jobs_scraped)
         foundit_df.columns = ['title','company','link','location','posted','emp_type','job_func','job_desc']
-        foundit_df.to_csv(f'try_foundit.csv')
+        foundit_df.to_csv(f'foundit.csv')
     except:
         print("Unable to Scrape Foundit")
     finally:
@@ -329,7 +329,7 @@ def scrape_jobstreet(job_query, len_jobs):
         
         job_descs_df.columns = ['link', 'location', 'job_func', 'emp_type', 'job_desc']
         jobstreet_df = jobs_df.merge(job_descs_df, on='link', how='left')
-        jobstreet_df.to_csv(f'try_jobstreet.csv')
+        jobstreet_df.to_csv(f'jobstreet.csv')
     except:
         print("Unable to Scrape Jobstreet")
     finally:
@@ -478,7 +478,7 @@ def scrape_kalibrr(job_query, len_jobs):
             job_descs_df = job_descs_df.T
         job_descs_df.columns = ['link', 'job_func', 'posted', 'job_desc']
         kalibrr_df = jobs_df.merge(job_descs_df, on='link', how='left')
-        kalibrr_df.to_csv('try_kalibrr.csv')
+        kalibrr_df.to_csv('kalibrr.csv')
     except:
         print("Unable to Scrape Kalibrr")
     finally:
