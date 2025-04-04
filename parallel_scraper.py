@@ -17,8 +17,8 @@ import sys
 
 def scrape_linkedin(job_query, len_jobs):
     start = time.time()
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    #driver = webdriver.Chrome()
     url = f"https://ph.linkedin.com/jobs/{job_query}-jobs"
 
     try:
@@ -142,8 +142,8 @@ def scrape_linkedin(job_query, len_jobs):
 
 def scrape_foundit(job_query, len_jobs):
     start = time.time()
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    #driver = webdriver.Chrome()
     url = f"https://www.foundit.com.ph/search/{job_query}-jobs"
 
     try:
@@ -252,8 +252,8 @@ def scrape_foundit(job_query, len_jobs):
 
 def scrape_jobstreet(job_query, len_jobs):
     start = time.time()
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    #driver = webdriver.Chrome()
     url = f"https://ph.jobstreet.com/{job_query}-jobs"
 
     try:
@@ -380,8 +380,8 @@ def scrape_jobstreet(job_query, len_jobs):
 
 def scrape_kalibrr(job_query, len_jobs):
     start = time.time()
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    #driver = webdriver.Chrome()
     url = f"https://www.kalibrr.com/home/te/{job_query}"
 
     try:
