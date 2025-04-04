@@ -495,10 +495,10 @@ if __name__ == '__main__':
     try:
         job_query = sys.argv[1]
         len_jobs = int(sys.argv[2])
-        linkedin_p = multiprocessing.Process(target=scrape_linkedin, args=('python-developer', 20)) 
-        foundit_p = multiprocessing.Process(target=scrape_foundit, args=('python-developer', 20))
-        jobstreet_p = multiprocessing.Process(target=scrape_jobstreet, args=('python-developer', 20))
-        kalibrr_p = multiprocessing.Process(target=scrape_kalibrr, args=('python-developer', 20))
+        linkedin_p = multiprocessing.Process(target=scrape_linkedin, args=(job_query, len_jobs)) 
+        foundit_p = multiprocessing.Process(target=scrape_foundit, args=(job_query, len_jobs))
+        jobstreet_p = multiprocessing.Process(target=scrape_jobstreet, args=(job_query, len_jobs))
+        kalibrr_p = multiprocessing.Process(target=scrape_kalibrr, args=(job_query, len_jobs))
         
         linkedin_p.start()
         foundit_p.start()
