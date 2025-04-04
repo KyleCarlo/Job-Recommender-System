@@ -17,8 +17,8 @@ import sys
 
 def scrape_linkedin(job_query, len_jobs):
     start = time.time()
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    # driver = webdriver.Chrome()
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     url = f"https://ph.linkedin.com/jobs/{job_query}-jobs"
 
     try:
@@ -26,6 +26,17 @@ def scrape_linkedin(job_query, len_jobs):
         ActionChains(driver).send_keys(Keys.ESCAPE).perform()
         job_list = driver.find_elements(By.XPATH, "//ul[@class='jobs-search__results-list']/li")
         
+        if len(job_list) == 0:
+            print("No jobs found for this query in Linkedin.")
+
+            empty_df = pd.DataFrame(columns=[
+                'title', 'link', 'location', 'company', 'emp_type', 'job_func', 'job_desc', 'posted'
+            ])
+            empty_df.to_csv('linkedin.csv', index=False)
+
+            driver.quit()
+            return 
+
         # job catalog scraping
         jobs_scraped = np.array([])
         for job in job_list:
@@ -122,7 +133,7 @@ def scrape_linkedin(job_query, len_jobs):
     finally:
         # close driver
         try:
-            driver.close()
+            driver.quit()
         except:
             print("Unable to Scrape Linkedin")
         
@@ -131,8 +142,8 @@ def scrape_linkedin(job_query, len_jobs):
 
 def scrape_foundit(job_query, len_jobs):
     start = time.time()
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    #driver = webdriver.Chrome()
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     url = f"https://www.foundit.com.ph/search/{job_query}-jobs"
 
     try:
@@ -143,8 +154,21 @@ def scrape_foundit(job_query, len_jobs):
             driver.get(f"{url}{'-' + str(page_num) if page_num > 1 else ''}")
 
             job_list = driver.find_elements(By.XPATH, "//div[@class='srpResultCard']/div")
-            if len(job_list) == 0:
-                break
+            
+            if len(job_list) <= 1:
+                print("No jobs found for this query on Foundit.")
+
+                # Save an empty DataFrame with the correct columns
+                empty_df = pd.DataFrame(columns=[
+                    'title', 'company', 'link', 'location', 'posted',
+                    'emp_type', 'job_func', 'job_desc'
+                ])
+                empty_df.to_csv('foundit.csv', index=False)
+
+                driver.quit()
+                return 
+
+
             job_list = job_list[1:] # remove the header
             for job in job_list:
                 # scraping title, company, url
@@ -219,7 +243,7 @@ def scrape_foundit(job_query, len_jobs):
     finally:
         # close driver
         try:
-            driver.close()
+            driver.quit()
         except:
             print("Unable to Scrape Foundit")
         
@@ -228,8 +252,8 @@ def scrape_foundit(job_query, len_jobs):
 
 def scrape_jobstreet(job_query, len_jobs):
     start = time.time()
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    #driver = webdriver.Chrome()
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     url = f"https://ph.jobstreet.com/{job_query}-jobs"
 
     try:
@@ -241,6 +265,19 @@ def scrape_jobstreet(job_query, len_jobs):
         while True:
             try:
                 job_list = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//article[@data-automation='normalJob']")))
+
+                if len(job_list) == 0:
+                    print("No jobs found for this query on JobStreet.")
+
+                    empty_df = pd.DataFrame(columns=[
+                        'title', 'link', 'company', 'posted',
+                        'location', 'job_func', 'emp_type', 'job_desc'
+                    ])
+                    empty_df.to_csv('jobstreet.csv', index=False)
+
+                    driver.quit()
+                    return  
+
                 for job in job_list:
                     descs = []
                     # scraping title, company, link
@@ -335,7 +372,7 @@ def scrape_jobstreet(job_query, len_jobs):
     finally:
         # close the driver
         try:
-            driver.close()
+            driver.quit()
         except:
             print("Unable to Scrape Jobstreet")
     end = time.time()
@@ -343,8 +380,8 @@ def scrape_jobstreet(job_query, len_jobs):
 
 def scrape_kalibrr(job_query, len_jobs):
     start = time.time()
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    #driver = webdriver.Chrome()
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     url = f"https://www.kalibrr.com/home/te/{job_query}"
 
     try:
@@ -362,6 +399,22 @@ def scrape_kalibrr(job_query, len_jobs):
                 load_more.click()
             except:
                 break
+
+        # If no jobs loaded at all
+        if len(job_list) == 0:
+            print("No jobs found for this query on Kalibrr.")
+
+            # Save empty DataFrame with column headers
+            empty_df = pd.DataFrame(columns=[
+                'title', 'link', 'company', 'emp_type', 'location',
+                'job_func', 'posted', 'job_desc'
+            ])
+            empty_df.to_csv('kalibrr.csv', index=False)
+
+            driver.quit()
+            return  
+
+        
         job_list[:len_jobs]
         
         # job catalog scraping
@@ -484,7 +537,7 @@ def scrape_kalibrr(job_query, len_jobs):
     finally:
         # close driver
         try:
-            driver.close()
+            driver.quit()
         except:
             print("Unable to Scrape Kalibrr")
 
