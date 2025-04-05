@@ -164,9 +164,7 @@ def scrape_foundit(job_query, len_jobs):
                     'emp_type', 'job_func', 'job_desc'
                 ])
                 empty_df.to_csv('foundit.csv', index=False)
-
-                driver.quit()
-                return 
+                break 
 
 
             job_list = job_list[1:] # remove the header
