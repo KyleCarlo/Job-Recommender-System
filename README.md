@@ -14,11 +14,6 @@ The modern job market is saturated with job postings on diverse platforms, leadi
 - Lorenzo, Antonio
 - Roco, Katrina
 
-# Technologies
-- webdriver-manager and requests for web scraping.
-- sentence-transformers for embedding and comparing text data, which is crucial for creating a personalized recommendation model.
-- Other standard data science libraries like scipy, tqdm, and scikit-learn are also utilized.
-
 # How it Works
 The system operates by performing a series of interconnected steps to deliver personalized recommendations:
 
