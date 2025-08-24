@@ -6,9 +6,7 @@ The core of this system is a personalized recommendation engine that scrapes job
 # Problem Statement
 The modern job market is saturated with job postings on diverse platforms, leading to a generic and often frustrating browsing experience for job seekers. They are forced to manually filter through countless irrelevant listings and re-enter qualifications repeatedly. This project tackles this issue by providing a more intelligent, efficient, and personalized solution.
 
-# Project Details
-- Course: DATA102
-## Members:
+# Collaborators:
 - Hinolan, Charles
 - Lasala, Kyle
 - Lorenzo, Antonio
